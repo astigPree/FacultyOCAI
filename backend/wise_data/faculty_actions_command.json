@@ -1,0 +1,14 @@
+{
+  "opening" : [
+    ["Good Day, This is Room Finder Faculty Screen where you can edit information in Guest Screen" , 4],
+    ["Good Day ADMIN!! this is ROOM FINDER where you can edit some data in Guest Screeen" , 4]
+  ],
+  "update" : [
+    ["The changes has been applied successfully" , 2],
+    ["The new data has been saved succesfully" , 2]
+  ],
+  "password" : [
+    ["New password has been saved, please remember it" , 2],
+    ["Old password has been removed and updated, please remember it" , 2]
+  ]
+}

@@ -1,0 +1,282 @@
+#:import chex kivy.utils.get_color_from_hex
+#:import ew kivy.uix.effectwidget
+# #:import Window kivy.uix.
+
+MainWindow:
+
+    content : content
+    display_talking : display_talking
+    activity : activity
+    picture : picture
+    display_talking_scroller: display_talking_scroller
+    action : action
+
+    BuildingPicture:
+        id : picture
+
+    ScrollView:
+        id : display_talking_scroller
+        size_hint : None, None
+        size : root.size[0] * 0.72 , root.size[1] * 0.23
+        pos : root.size[0] * 0.255 , root.size[1] * 0.03
+
+        canvas.before:
+            Color:
+                rgba : chex('efefee')
+            RoundedRectangle:
+                pos : self.pos
+                size : self.size
+                radius : ( min(self.size) *0.24,)
+
+        MDGridLayout:
+            adaptive_height: True
+            cols : 1
+            padding : [ dp(25) , dp(10) , dp(5) , dp(10) ]
+
+            AIContentLabel:
+                id : display_talking
+
+                on_text:
+                    root.updateScrolling(1)
+
+    ContentWindow:
+        id : content
+        size_hint : None , None
+        size : root.size[0] * 0.75 , root.size[1] * 0.70
+        pos : root.size[0] * 0.24, root.size[1] * 0.28
+
+
+
+    OCLogo:
+        size_hint: 0.2 , 0.57
+        pos_hint: { 'x' : 0.02 , 'y': 0.4 }
+
+    AIImageActions:
+        id : action
+        size_hint : 0.2 , 0.3
+        pos_hint: { 'x' : 0.02 , 'y': 0.08 }
+
+    AIActivity:
+        id : activity
+        size_hint : 0.2 , 0.05
+        pos_hint: { 'x' : 0.02 , 'top': 0.08 }
+
+# ------------------- AI Image Actions ------------
+<AIImageActions>:
+    action : action
+    face : face
+    emoji : emoji
+    info : info
+
+    Image:
+        id : action
+        size_hint : 0.8 , 1
+        pos_hint : { 'center_x' : 0.5 , 'center_y': 0.5 }
+        source : root.image
+        allow_stretch : True
+        keep_ratio : False
+
+    BoxLayout:
+        id : face
+        size_hint : 0.43 , 0.4
+        pos_hint : { "center_x" : 0.5 , "center_y" : 0.65 }
+        orientation : 'vertical'
+
+        Label:
+            id : emoji
+            size_hint : 1 , 1
+            color : chex("620609")
+            halign : 'center'
+            font_name : "emoji_font"
+
+            on_size:
+                self.font_size = min(self.size) * 0.55
+
+    Label:
+        id : info
+        size_hint : 0.43 , 0.1
+        pos_hint : { "center_x" : 0.5 , "center_y" : 0.445 }
+        color : chex("620609")
+        font_name : 'title_font'
+
+        on_size:
+            self.font_size = min(self.size) * 0.7
+
+
+# ------------------- Login Viewer ------------
+<LogInView>:
+    background_color : 0 , 0 , 0, 0
+    overlay_color : 0 , 0 , 0, 0.3
+    auto_dismiss : False
+
+    username : username
+    password : password
+    warning_label : warning_label
+
+    BoxLayout:
+        size_hint : 0.5 , 0.5
+        pos_hint : { "center_x" : 0.5 , "center_y" : 0.5 }
+        orientation : 'vertical'
+        spacing : dp(10)
+
+        on_size:
+            self.padding = min(self.size) * 0.05
+
+        canvas.before:
+            Color :
+                rgba : chex('dabbbb')
+            RoundedRectangle:
+                pos : self.pos
+                size : self.size
+                radius : ( 24, )
+
+        LogInTitleLabel:
+            size_hint : 1, 0.2
+
+        LogInFormLabel:
+            size_hint : 1 , 0.1
+            text : "USERNAME :"
+        BoxLayout:
+            size_hint : 1 , 0.15
+            padding : [ dp(10) , dp(5) , dp(10) , dp(5) ]
+
+            TextInput:
+                id : username
+                size_hint : 1 , 1
+                hint_text: "Enter The Admin Username"
+                font_name : "ai_font"
+                foreground_color: chex("620609")
+                password : True
+                on_parent:
+                    self.font_size = min(self.size) * 0.52
+                on_size:
+                    self.font_size = min(self.size) * 0.52
+
+        LogInFormLabel:
+            size_hint : 1 , 0.1
+            text : "PASSWORD :"
+        BoxLayout:
+            size_hint : 1 , 0.15
+            padding : [ dp(10) , dp(5) , dp(10) , dp(5) ]
+
+            TextInput:
+                id : password
+                size_hint : 1 , 1
+                hint_text: "Enter The Admin Password"
+                font_name : "ai_font"
+                foreground_color: chex("620609")
+                password : True
+                on_parent:
+                    self.font_size = min(self.size) * 0.52
+                on_size:
+                    self.font_size = min(self.size) * 0.52
+
+
+        BoxLayout:
+            size_hint : 1, 0.3
+            padding : dp(10)
+            spacing : dp(10)
+
+            Label:
+                id : warning_label
+                size_hint : 0.5 , 1
+                color : chex('dabbbb')
+                text : "INCORRECT PASSWORD!"
+                font_size : sp(19)
+
+
+            BoxLayout:
+                size_hint : 0.5 , 1
+                padding : dp(20)
+
+                ChangeFacultyInfoModalViewButtonUpdate:
+                    size_hint : 1 , 1
+                    text : "UNLOCK"
+
+                    on_release:
+                        root.command(username.text, password.text)
+
+
+# ------------------- Screen Holder ------------
+<ContentWindow>:
+
+# ------------------- Additional Widgets ----------
+<LogInFormLabel@Label>:
+    font_name : "content_font"
+    height : self.texture_size[1]
+    color : chex("620609")
+    on_parent:
+        self.font_size = min(self.size) * 0.55
+        self.text_size = self.width - dp(20), None
+    on_size:
+        self.font_size = min(self.size) * 0.55
+        self.text_size = self.width - dp(20), None
+
+<LogInTitleLabel@Label>:
+    text : "Enter the admin username and password !!"
+    font_name : "title_font"
+    height : self.texture_size[1]
+    color : chex("620609")
+    on_parent:
+        self.font_size = min(self.size) * 0.35
+        self.text_size = self.width - dp(20), None
+    on_size:
+        self.font_size = min(self.size) * 0.35
+        self.text_size = self.width - dp(20), None
+
+
+<BuildingPicture@EffectWidget>:
+	effects: ew.HorizontalBlurEffect(size=self.parent.size_effect), ew.VerticalBlurEffect(size=self.parent.size_effect)
+	picture : picture
+
+	Image :
+
+		canvas.before:
+			Color:
+				rgb : 0 , 0 , 0
+			Rectangle:
+				pos : self.pos
+				size : self.size
+
+		id : picture
+		keep_ratio : False
+		allow_stretch : True
+
+<AIActivity@Label>:
+    canvas.before:
+        Color:
+            rgba : chex('efefee')
+        RoundedRectangle:
+            pos: self.pos
+            size : self.size
+            radius : ( min(self.size) * 0.5 ,)
+
+    text : "INITIALIZING"
+    font_size : min(root.parent.size) * 0.03
+    font_name : "title_font"
+    color : chex('#620609') # Color should be different based on the activity
+
+<AIContentLabel@MDLabel>:
+    color : "black"
+    font_name : "ai_font"
+    font_size : min(root.parent.parent.size) * 0.15
+    size_hint : 1 , None
+    height : self.texture_size[1]
+    markup : True
+    halign : 'left'
+    valign: 'top'
+
+<OCLogo@BoxLayout>:
+    orientation : 'vertical'
+
+    Image:
+        source : "pictures/osmenia logo.png"
+        size_hint : 1 , 0.5
+        keep_ratio : False
+        allow_stretch : True
+
+    Image:
+        source : "pictures/department logo.png"
+        size_hint : 1 , 0.5
+        keep_ratio : False
+        allow_stretch : True

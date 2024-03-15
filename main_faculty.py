@@ -198,6 +198,8 @@ class MainWindow(FloatLayout) :
 
     def updateFacultySecurity(self, username : str , password : str ):
         self.__system_data['faculty'] = (username , password)
+        self.saveImportantData()
+        self.algo_action = "password"
         print(self.__system_data)
 
     def saveImportantData(self):
@@ -229,7 +231,7 @@ class MainWindow(FloatLayout) :
         try:
             speed = talking_time / len(self.__ai_talking)
         except ZeroDivisionError:
-            speed = 5
+            speed = 3
         else:
             Clock.schedule_once(lambda x : Animate(speed), speed)
 
@@ -255,14 +257,6 @@ class MainWindow(FloatLayout) :
             self.algo_action = "opening"
 
     # ---------------------- WRITING DATA ------------------------------
-
-    def updateNewCommand(self, command : typing.Union[None , str]):
-        if command is None or not command :
-            return
-        else:
-            print(f"Command : {command}")
-        self.__current_command = command
-
     def updateAIText(self, text : str):
         self.__ai_talking = text
 
@@ -297,7 +291,6 @@ class MainWindow(FloatLayout) :
 
     def getGuestScreenData(self, name : str):
         return self.content.current_screen.screens_handler.get_screen(name).getScreenInformation()
-
 
 
 class RoomAIApp(MDApp) :

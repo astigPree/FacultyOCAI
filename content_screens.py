@@ -23,23 +23,23 @@ Clock.max_iteration = 60
 
 
 # ------------------------ Faculty Screens ----------------------
-class FacultySettingsDropDownButton(MDFillRoundFlatButton):
+class FacultySettingsDropDownButton(MDFillRoundFlatButton) :
     command: callable = ObjectProperty(None)
 
     def on_release(self) :
         self.command(self.text)
 
 
-class SettingPasswordForm(MDBoxLayout):
+class SettingPasswordForm(MDBoxLayout) :
     username: TextInput = ObjectProperty(None)
     password: TextInput = ObjectProperty(None)
 
-    def comparison(self, passed_username : str , passed_password : str) -> bool:
-        if self.username.text == passed_username and passed_password == self.password.text:
+    def comparison(self, passed_username: str, passed_password: str) -> bool :
+        if self.username.text == passed_username and passed_password == self.password.text :
             return True
         return False
 
-    def clearInput(self):
+    def clearInput(self) :
         self.username.text = ""
         self.password.text = ""
 
@@ -56,7 +56,7 @@ class FacultyWarningActionsModalView(ModalView) :
 
     text_displayer: Label = ObjectProperty(None)
 
-    proceed_text : str = StringProperty("PROCCED")
+    proceed_text: str = StringProperty("PROCCED")
     cancelText: str = StringProperty("CANCEL")
 
     command: callable = ObjectProperty(None)
@@ -77,7 +77,7 @@ class FacultyWarningActionsModalView(ModalView) :
         self.proceed_text = "ADD"
         self.open()
 
-    def displayUnfinishedTransactionInTeacherScreen(self, command : callable):
+    def displayUnfinishedTransactionInTeacherScreen(self, command: callable) :
         self.isUsedToDisplay = False
         self.text_displayer.text = f"There is currently Unfinished activities in current screen.\nDo you want to disregard it and continue?"
         self.text_displayer.halign = "left"
@@ -85,7 +85,7 @@ class FacultyWarningActionsModalView(ModalView) :
         self.command = command
         self.open()
 
-    def on_dismiss(self):
+    def on_dismiss(self) :
         self.text_displayer.text = ""
         self.text_displayer.halign = "center"
         self.isUsedToDisplay = True
@@ -93,7 +93,7 @@ class FacultyWarningActionsModalView(ModalView) :
         self.proceed_text = ""
         self.command = ObjectProperty(None)
 
-    def displayResetScheduleWarning(self, command : callable):
+    def displayResetScheduleWarning(self, command: callable) :
         self.isUsedToDisplay = False
         self.text_displayer.text = f"Do you want to clear all the past save schedule and the current schedule created?"
         self.text_displayer.halign = "left"
@@ -101,7 +101,7 @@ class FacultyWarningActionsModalView(ModalView) :
         self.command = command
         self.open()
 
-    def displayApplyingChanges(self, command : callable ):
+    def displayApplyingChanges(self, command: callable) :
         self.isUsedToDisplay = False
         self.text_displayer.text = "Do you want to save the new changes in this screen?"
         self.text_displayer.halign = "left"
@@ -109,7 +109,7 @@ class FacultyWarningActionsModalView(ModalView) :
         self.command = command
         self.open()
 
-    def displayInfoBeforeExiting(self, command : callable):
+    def displayInfoBeforeExiting(self, command: callable) :
         self.isUsedToDisplay = False
         self.text_displayer.text = f"Do you want to start the activity of guest inqueries handling? If you want to just click the \'GOTO MAIN SCREEN\' to go back to main screen where the activities executed."
         self.text_displayer.halign = "center"
@@ -117,7 +117,7 @@ class FacultyWarningActionsModalView(ModalView) :
         self.command = command
         self.open()
 
-    def displaySavingNewFacultySecurity(self , command : callable):
+    def displaySavingNewFacultySecurity(self, command: callable) :
         self.isUsedToDisplay = False
         self.text_displayer.text = "There is no turning BACK, by changing the system when the faculty member who will enter this screen must use the new security such as USERNAME and PASSWORD. Do you agree the changes of the system security?"
         self.text_displayer.halign = "left"
@@ -175,7 +175,7 @@ class AddFacultyScheduleModalView(ModalView) :
     location_dropdown: MDFillRoundFlatButton = ObjectProperty()
     dropdown_list = DropDown()
 
-    day_selection : MDFillRoundFlatButton = ObjectProperty()
+    day_selection: MDFillRoundFlatButton = ObjectProperty()
     days_dropdown_list = DropDown()
 
     time_selections: AddFacultyScheduleModalViewTimeSelections = ObjectProperty(None)
@@ -188,7 +188,7 @@ class AddFacultyScheduleModalView(ModalView) :
 
     numberOfUsed = 0
 
-    def on_kv_post(self, base_widget):
+    def on_kv_post(self, base_widget) :
         self.time_selections = AddFacultyScheduleModalViewTimeSelections()
         self.time_selections.holder = self
 
@@ -196,7 +196,7 @@ class AddFacultyScheduleModalView(ModalView) :
         self.location_dropdown.text = location
         self.dropdown_list.dismiss()
 
-    def changeDay(self, day : str):
+    def changeDay(self, day: str) :
         self.day_selection.text = day
         self.days_dropdown_list.dismiss()
 
@@ -210,11 +210,11 @@ class AddFacultyScheduleModalView(ModalView) :
         elif self.day_selection.text == "Select Day" :
             self.holder.warning.displayError("Please specify what day you want to stay-in for the time being")
         else :
-            def command():
-                schedule_json =  f"{self.time_selections.time_start}-{self.time_selections.time_end}"
+            def command() :
+                schedule_json = f"{self.time_selections.time_start}-{self.time_selections.time_end}"
                 day = self.day_selection.text
                 room_schedule = self.holder.parent.parent.parent.getKeyByRoomName(self.location_dropdown.text)
-                self.holder.addSchedule(schedule = schedule_json , day = day, room_schedule = room_schedule)
+                self.holder.addSchedule(schedule=schedule_json, day=day, room_schedule=room_schedule)
                 self.closeModal()
                 # self.holder.warning.command = None
 
@@ -244,8 +244,8 @@ class AddFacultyScheduleModalView(ModalView) :
             self.dropdown_list.add_widget(content_box)
 
             content_box = FacultySelectionLocationDropdownContent()
-            for day in self.holder.days:
-                dropButton = FacultyDropDownButton(text = day)
+            for day in self.holder.days :
+                dropButton = FacultyDropDownButton(text=day)
                 dropButton.command = self.changeDay
 
                 content_box.add_widget(dropButton)
@@ -277,14 +277,14 @@ class ChangeFacultyInfoModalView(ModalView) :
 class ScheduleContainer(BoxLayout) :
     room: str = StringProperty('')
     schedule: str = StringProperty('')
-    day : str = StringProperty('')
+    day: str = StringProperty('')
 
     deleteSchedule: callable = ObjectProperty(None)
 
     json_schedule = ""
     room_schedule = ""
 
-    def updateOnCreate(self, data_info: str, room: str, schedule: str , day : str ) :
+    def updateOnCreate(self, data_info: str, room: str, schedule: str, day: str) :
         self.json_schedule = data_info
         self.room_schedule = room
         self.room = room.upper()
@@ -299,114 +299,114 @@ class ScheduleContainer(BoxLayout) :
         self.schedule = f"{schedule_1} - {schedule_2}"
 
 
-class SettingScreen(Screen):
-
+class SettingScreen(Screen) :
     isSettings: bool = BooleanProperty(True)
 
-    warning : FacultyWarningActionsModalView = ObjectProperty(None)
-    dropdown_button : MDFillRoundFlatButton = ObjectProperty(None)
-    data_warning : Label = ObjectProperty(None)
-    data_input : TextInput = ObjectProperty(None)
-    room_picture : Image = ObjectProperty(None)
-    dropdown_list : DropDown = ObjectProperty(None)
+    warning: FacultyWarningActionsModalView = ObjectProperty(None)
+    dropdown_button: MDFillRoundFlatButton = ObjectProperty(None)
+    data_warning: Label = ObjectProperty(None)
+    data_input: TextInput = ObjectProperty(None)
+    room_picture: Image = ObjectProperty(None)
+    dropdown_list: DropDown = ObjectProperty(None)
 
-    past_security : SettingPasswordForm = ObjectProperty(None)
-    new_security : SettingPasswordForm = ObjectProperty(None)
+    past_security: SettingPasswordForm = ObjectProperty(None)
+    new_security: SettingPasswordForm = ObjectProperty(None)
 
-    __room_data : dict = DictProperty({})
+    __room_data: dict = DictProperty({})
 
-    __past_text : str = StringProperty("sdfsd") # Use to check if there is edited happen in textbox
-    __selected_room : dict = DictProperty({})
+    __past_text: str = StringProperty("sdfsd")  # Use to check if there is edited happen in textbox
+    __selected_room: dict = DictProperty({})
 
-    def on_kv_post(self, base_widget):
+    def on_kv_post(self, base_widget) :
         self.warning = FacultyWarningActionsModalView()
 
-    def applyChanges(self):
+    def applyChanges(self) :
         # Check if okey to save
         room_key = None
-        for key in self.__room_data:
-            if self.__room_data[key]['name'] == self.dropdown_button.text:
-                room_key : str = key
+        for key in self.__room_data :
+            if self.__room_data[key]['name'] == self.dropdown_button.text :
+                room_key: str = key
                 break
 
-        if not room_key or self.__past_text == self.data_input.text:
+        if not room_key or self.__past_text == self.data_input.text :
             return
 
         # Update the room data
         self.__selected_room['brief information'][0] = self.data_input.text
 
-        def command():
-            self.parent.parent.parent.applyChanges( room_key, self.__selected_room , True)
+        def command() :
+            self.parent.parent.parent.applyChanges(room_key, self.__selected_room, True)
             self.data_warning.text = "Successfully saved the new information about the room!"
             self.data_warning.color = chex('0da22e')
             self.warning.dismiss()
 
         self.warning.displayApplyingChanges(command)
 
-    def changeScreenSecurity(self):
+    def changeScreenSecurity(self) :
         username, password = self.parent.parent.parent.getSecurity()
-        if not self.past_security.comparison(username , password):
+        if not self.past_security.comparison(username, password) :
             self.warning.displayError("The past security does not matches the faculty system security!")
             return
 
-        def command():
-            self.parent.parent.parent.changeSecurity(self.new_security.username.text , self.new_security.password.text )
+        def command() :
+            self.parent.parent.parent.changeSecurity(self.new_security.username.text, self.new_security.password.text)
             self.past_security.clearInput()
             self.new_security.clearInput()
             self.warning.dismiss()
 
         self.warning.displaySavingNewFacultySecurity(command)
 
-    def checkChanges(self, *args):
-        if not self.__past_text:
+    def checkChanges(self, *args) :
+        if not self.__past_text :
             return
-        if self.__past_text != self.data_input.text:
+        if self.__past_text != self.data_input.text :
             self.data_warning.text = "Currently there is a changes in the data, save it!"
             self.data_warning.color = chex('bf0a10')
 
-    def initializedData(self, *args):
+    def initializedData(self, *args) :
 
-        if self.dropdown_list:
+        if self.dropdown_list :
             return
         self.__room_data = self.parent.parent.parent.room_data
 
         self.dropdown_list = DropDown()
         content_box = FacultySelectionLocationDropdownContent()
 
-        for room in self.__room_data:
+        for room in self.__room_data :
             dropButton = FacultySettingsDropDownButton(text=self.__room_data[room]['name'])
             dropButton.command = self.changeRoom
             content_box.add_widget(dropButton)
         self.dropdown_list.add_widget(content_box)
 
-    def on_enter(self, *args):
+    def on_enter(self, *args) :
         Clock.schedule_once(self.initializedData)
 
-    def changeRoom(self , name : str):
+    def changeRoom(self, name: str) :
         self.dropdown_button.text = name
         self.dropdown_list.dismiss()
 
-        def command(*args):
-            for key , values in self.__room_data.items():
-                if values['name'] == name:
+        def command(*args) :
+            for key, values in self.__room_data.items() :
+                if values['name'] == name :
                     self.__past_text = values['brief information'][0]
                     self.data_input.text = values['brief information'][0]
                     self.__selected_room = values
                     self.data_warning.text = ""
                     self.room_picture.source = values['building picture']
                     break
-        Clock.schedule_once(command )
 
-    def goBackToMainScreen(self):
-        def command():
+        Clock.schedule_once(command)
+
+    def goBackToMainScreen(self) :
+        def command() :
             self.warning.dismiss()
             self.parent.parent.parent.changeToGuestScreen()
+
         self.warning.displayInfoBeforeExiting(command)
 
 
 class TeachersScreen(Screen) :
-
-    isSettings : bool = BooleanProperty(False)
+    isSettings: bool = BooleanProperty(False)
 
     teacher_schedule: MDGridLayout = ObjectProperty(None)
     teacher_image: Image = ObjectProperty(None)
@@ -416,16 +416,16 @@ class TeachersScreen(Screen) :
     teacher_data: dict = DictProperty({})
     teacher_key: str = StringProperty("")
 
-    days = ( "MONDAY" , "TUESDAY" , "WEDNESDAY" , "THURSDAY" , "FRIDAY" , "SATURDAY", "SUNDAY" )
+    days = ("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY")
 
-    change_faculty_info : ChangeFacultyInfoModalView = ObjectProperty()
-    add_schedule : AddFacultyScheduleModalView = ObjectProperty()
-    warning : FacultyWarningActionsModalView = ObjectProperty()
+    change_faculty_info: ChangeFacultyInfoModalView = ObjectProperty()
+    add_schedule: AddFacultyScheduleModalView = ObjectProperty()
+    warning: FacultyWarningActionsModalView = ObjectProperty()
 
-    new_added_schedule : dict = DictProperty({})
-    removed_schedules : dict = DictProperty({})
+    new_added_schedule: dict = DictProperty({})
+    removed_schedules: dict = DictProperty({})
 
-    def on_kv_post(self, base_widget):
+    def on_kv_post(self, base_widget) :
         self.change_faculty_info = ChangeFacultyInfoModalView()
         self.add_schedule = AddFacultyScheduleModalView()
         self.warning = FacultyWarningActionsModalView()
@@ -435,11 +435,18 @@ class TeachersScreen(Screen) :
         self.add_schedule.holder = self
         # self.warning.holder = self
 
+    def on_enter(self, *args) :
+        self.updateDisplay(self.teacher_data)
+
     def updateDisplay(self, data: dict) :
         # Update the display contain in schedule of each teacher
-        self.teacher_info.text = data['information']
-        self.teacher_image.source = data['picture']
-        self.teacher_name.text = data['person']
+        if not self.teacher_data :
+            self.teacher_info.text = data['information']
+            self.teacher_image.source = data['picture']
+            self.teacher_name.text = data['person']
+
+            # TODO: Update the schedule screen
+            self.teacher_data = data
 
         # For debugging
         # if data['person'] == "Justine Aban" :
@@ -450,33 +457,30 @@ class TeachersScreen(Screen) :
             for schedule_time in data['locations'][room] :
                 container = ScheduleContainer()
                 schedule, day = schedule_time.split("/")
-                container.updateOnCreate(schedule_time, room, schedule , self.days[int(day)])
+                container.updateOnCreate(schedule_time, room, schedule, self.days[int(day)])
                 container.deleteSchedule = self.removeSchedule
                 self.teacher_schedule.add_widget(container)
 
-        # TODO: Update the schedule screen
-        self.teacher_data = data
-
-    def isThereAnyChanges(self) -> bool:
-        if self.new_added_schedule:
+    def isThereAnyChanges(self) -> bool :
+        if self.new_added_schedule :
             return True
-        if self.removed_schedules:
+        if self.removed_schedules :
             return True
-        if self.teacher_data['person'] != self.teacher_name.text:
+        if self.teacher_data['person'] != self.teacher_name.text :
             return True
-        if self.teacher_data['information'] != self.teacher_info.text:
+        if self.teacher_data['information'] != self.teacher_info.text :
             return True
 
         return False
 
-    def removeSchedule(self, schedule_object : ScheduleContainer ) :
+    def removeSchedule(self, schedule_object: ScheduleContainer) :
         json_schedule = schedule_object.json_schedule
         room_schedule = schedule_object.room_schedule
 
-        if room_schedule in self.removed_schedules:
+        if room_schedule in self.removed_schedules :
             self.removed_schedules[room_schedule].append(json_schedule)
-        else:
-            self.removed_schedules[room_schedule] = [json_schedule,]
+        else :
+            self.removed_schedules[room_schedule] = [json_schedule, ]
 
         self.teacher_schedule.remove_widget(widget=schedule_object)
 
@@ -485,21 +489,21 @@ class TeachersScreen(Screen) :
         self.teacher_name.text = name if len(name) else self.teacher_name.text
 
     def resetSchedule(self) :
-        for key, item in self.teacher_data.items():
-            if key in self.removed_schedules:
+        for key, item in self.teacher_data.items() :
+            if key in self.removed_schedules :
                 self.removed_schedules[key].append(item)
-            else:
-                self.removed_schedules[key] = [item,]
+            else :
+                self.removed_schedules[key] = [item, ]
         self.teacher_data['locations'] = {}
         self.teacher_schedule.clear_widgets()
         self.warning.dismiss()
 
-    def addSchedule(self, schedule: str, day : str, room_schedule: str) :
+    def addSchedule(self, schedule: str, day: str, room_schedule: str) :
         data_info = f"{schedule}/{self.days.index(day)}"
-        if room_schedule in self.new_added_schedule:
+        if room_schedule in self.new_added_schedule :
             self.new_added_schedule[room_schedule].append(data_info)
-        else:
-            self.new_added_schedule[room_schedule] = [data_info,]
+        else :
+            self.new_added_schedule[room_schedule] = [data_info, ]
 
         container = ScheduleContainer()
         container.updateOnCreate(data_info, room_schedule, schedule, day)
@@ -508,33 +512,37 @@ class TeachersScreen(Screen) :
         self.add_schedule.closeModal()
         self.warning.dismiss()
 
-    def applyChanges(self):
+    def applyChanges(self) :
         self.teacher_data["person"] = self.teacher_name.text
         self.teacher_data["information"] = self.teacher_info.text
 
-        for key, values in self.removed_schedules.items(): # Use to filter and remove the past value
-            self.teacher_data["locations"][key] = [value for value in self.teacher_data["locations"].get(key, []) if value not in values]
-        self.teacher_data["locations"] = {key : self.new_added_schedule.get(key, []) + self.teacher_data["locations"].get(key, []) for key in set(self.new_added_schedule) | set(self.teacher_data["locations"])}
+        for key, values in self.removed_schedules.items() :  # Use to filter and remove the past value
+            self.teacher_data["locations"][key] = [value for value in self.teacher_data["locations"].get(key, []) if
+                                                   value not in values]
+        self.teacher_data["locations"] = {
+            key : self.new_added_schedule.get(key, []) + self.teacher_data["locations"].get(key, []) for key in
+            set(self.new_added_schedule) | set(self.teacher_data["locations"])}
 
         self.new_added_schedule.clear()
         self.removed_schedules.clear()
-        self.parent.parent.parent.applyChanges( self.teacher_key, self.teacher_data )
+        self.parent.parent.parent.applyChanges(self.teacher_key, self.teacher_data)
         self.warning.dismiss()
 
-    def disregardActivities(self , changeCommand : callable, screen_name : str):
-        def command():
+    def disregardActivities(self, changeCommand: callable, screen_name: str) :
+        def command() :
             self.removed_schedules.clear()
             self.new_added_schedule.clear()
             self.warning.dismiss()
             changeCommand(screen_name)
+
         self.warning.displayUnfinishedTransactionInTeacherScreen(command=command)
 
-    def resetScheduleWarning(self):
-        if self.teacher_schedule.children:
+    def resetScheduleWarning(self) :
+        if self.teacher_schedule.children :
             self.warning.displayResetScheduleWarning(self.resetSchedule)
 
-    def applyChangesWarning(self):
-        if self.isThereAnyChanges():
+    def applyChangesWarning(self) :
+        if self.isThereAnyChanges() :
             self.warning.displayApplyingChanges(self.applyChanges)
 
 
@@ -563,31 +571,33 @@ class FacultyScreen(Screen) :
     current_screen: str = StringProperty("")
     list_of_screens: dict[str, TeachersScreen] = DictProperty({})
 
-    exit_command : callable = ObjectProperty() # Use to exit the
+    exit_command: callable = ObjectProperty()  # Use to exit the
 
-    warning_view : FacultyWarningActionsModalView = ObjectProperty()
+    warning_view: FacultyWarningActionsModalView = ObjectProperty()
 
-    def on_kv_post(self, base_widget):
+    def on_kv_post(self, base_widget) :
         self.warning_view = FacultyWarningActionsModalView()
 
-    def getSecurity(self) -> tuple[str, str]:
+    def getSecurity(self) -> tuple[str, str] :
         return self.parent.parent.facultySecurity
 
-    def changeSecurity(self, new_username : str , new_password : str):
-        self.parent.parent.updateFacultySecurity(new_username , new_password)
+    def changeSecurity(self, new_username: str, new_password: str) :
+        self.parent.parent.updateFacultySecurity(new_username, new_password)
 
-    def applyChanges(self , key : str , new_data : dict , isRoom = False):
-        if isRoom:
+    def applyChanges(self, key: str, new_data: dict, isRoom=False) :
+        if isRoom :
             self.room_data[key] = new_data
             filename, folder = self.parent.parent.room_filename
-            self.parent.parent.saveNewData(filename=filename , data=self.room_data , folder=folder)
-        else:
+            self.parent.parent.saveNewData(filename=filename, data=self.room_data, folder=folder)
+        else :
             self.instructor_data[key] = new_data
-            filename , folder = self.parent.parent.instructor_filename
-            self.parent.parent.saveNewData(filename=filename , data=self.instructor_data , folder=folder)
+            filename, folder = self.parent.parent.instructor_filename
+            self.parent.parent.saveNewData(filename=filename, data=self.instructor_data, folder=folder)
             self.update_navigation_content()
 
-    def displayWindow(self, *args):
+        self.parent.parent.algo_action = "update"
+
+    def displayWindow(self, *args) :
         if self.parent :
 
             self.exit_command = self.parent.switchScreenByName
@@ -633,15 +643,15 @@ class FacultyScreen(Screen) :
     def on_enter(self, *args) :
         self.displayWindow()
 
-    def getKeyByRoomName(self , room : str ) -> str :
-        for key in self.room_data:
-            if self.room_data[key]['name'] == room:
+    def getKeyByRoomName(self, room: str) -> str :
+        for key in self.room_data :
+            if self.room_data[key]['name'] == room :
                 return key
 
     def getAllRooms(self) -> tuple[str, ...] :
         return tuple(self.room_data[room]['name'] for room in self.room_data)
 
-    def update(self , *args) :
+    def update(self, *args) :
         for child in self.navigation_buttons.children :
             if child.name == self.current_screen :
                 child.isSelected = True
@@ -651,24 +661,24 @@ class FacultyScreen(Screen) :
 
     def changeScreen(self, name: str) :
         # This 3 lines here use to identify if there is any changes in the data of the instructor
-        if self.navigation_screens.current_screen:
-            if not self.navigation_screens.current_screen.isSettings:
+        if self.navigation_screens.current_screen :
+            if not self.navigation_screens.current_screen.isSettings :
                 # Check if there is any changes
                 if self.navigation_screens.current_screen.isThereAnyChanges() :
                     # Check if the selected screen is same as clicked
                     if self.current_screen == name :
                         return
-                    self.navigation_screens.current_screen.disregardActivities(self.changeScreen , name)
+                    self.navigation_screens.current_screen.disregardActivities(self.changeScreen, name)
                     return
 
         self.current_screen = name
-        self.update() # Update the navigation's button
+        self.update()  # Update the navigation's button
         # Check if the screen exist before changing
-        if name in self.list_of_screens:
-            if not self.list_of_screens[name].isSettings:
+        if name in self.list_of_screens :
+            if not self.list_of_screens[name].isSettings :
                 self.list_of_screens[name].updateDisplay(self.instructor_data[name])
-        else:
-            screen = TeachersScreen(name =name)
+        else :
+            screen = TeachersScreen(name=name)
             screen.teacher_key = name
             screen.updateDisplay(self.instructor_data[name])
             self.list_of_screens[name] = screen
@@ -679,16 +689,15 @@ class FacultyScreen(Screen) :
 
     def update_navigation_content(self) :
         for nav_button in self.navigation_buttons.children :
-            if nav_button.text == "S E T T I N G S":
+            if nav_button.text == "S E T T I N G S" :
                 continue
             nav_button.text = self.instructor_data[nav_button.name]['person']
 
-    def changeToGuestScreen(self):
-        if not self.parent:
+    def changeToGuestScreen(self) :
+        if not self.parent :
             return
 
         self.parent.switchScreenByName("guest")
-
 
 
 # ------------------------ Developer Screens ----------------------

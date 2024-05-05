@@ -8,7 +8,7 @@ This application allows administrators to configure data provided by the Faculty
 
 ## Images
 ### Main Content
-![Application Interface](App_Images/content.jpg)
+![Application Interface](App_Images/content.png)
 
 ## Technology Stack
 - **Programming Language:** Python

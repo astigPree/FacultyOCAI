@@ -1,33 +1,132 @@
-# Admin Interface Of RoomFinder and Conversational Interface (A.I.)
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Framework](https://img.shields.io/badge/Framework-Kivy-orange)
+![UI](https://img.shields.io/badge/UI-KivyMD-purple)
+![Application](https://img.shields.io/badge/App-Desktop-green)
+![Machine Learning](https://img.shields.io/badge/MachineLearning-ScikitLearn-yellow)
+![Status](https://img.shields.io/badge/Project-Academic-blue)
 
-## Description
-The Admin Interface is an extension screen integrated with GuestOCAI, facilitating the configuration of data for the applications.
+# Admin Interface for GuestOCAI ⚙️
 
-## Usage
-This application allows administrators to configure data provided by the FacultyOCAI, enabling changes or updates to any new information.
+## Short Introduction
 
-## Images
-### Main Content
-![Application Interface](App_Images/content.png)
+The **Admin Interface** is a desktop-based configuration tool designed to manage and maintain system data used by the **GuestOCAI application**.
 
-## Technology Stack
-- **Programming Language:** Python
-- **Frameworks:** Kivy, Kivymd
+This interface allows administrators to **modify, update, and manage information provided by the FacultyOCAI system**, ensuring that the GuestOCAI application always operates with updated data.
 
-## Installation Steps
-   1. Execute the "Faculty Screen.bat" file.
-   2. Enter the Admin Username & Password.
-   3. To update/modify faculty member information, select a name of an instructor in the SCREENS navigator.
-   4. Click the "Change Info" button to modify the selected instructor's name and information.
-   5. Use the "Add Schedule" button to include a new schedule for the instructor, which will be displayed in the instructor screen.
-   6. Click "Apply Change" to save any modifications/changes in the instructor screen.
-   7. Utilize the "Reset Schedule" button to clear all schedules in the instructor screen.
-   8. To update/change room information and system security, navigate to "SETTINGS" in the navigation menu.
-   9. Click "CLICK HERE TO SELECT ROOM" to choose a room for information modification.
-   10. Hit "Apply Changes" to save the changes made to the selected room's information.
-   11. Update system security by filling out the form in the password form and clicking "UPDATE PASSWORD."
+The application is built using **Python and the Kivy framework**, providing a simple and functional interface for administrators to perform system updates efficiently.
 
-## Acknowledgements
-- Osmena Colleges
-- Josh Ametin
-- Jeremiah Aguilar
+This project demonstrates skills in **GUI development, system integration, and administrative data management**.
+
+---
+
+# Technologies Used
+
+### Programming Language
+
+* Python
+
+### Frameworks
+
+* Kivy
+* KivyMD
+
+### Libraries
+
+* Scikit-Learn
+* PyAudio
+* Text-to-Speech
+
+### Development Concepts
+
+* Desktop Application Development
+* System Configuration Tools
+* Data Management Interfaces
+* Application Integration
+
+---
+
+# Process on How I Built It
+
+1. **Understanding System Requirements**
+   The Admin Interface was designed to support the GuestOCAI system by providing administrators with a dedicated interface for managing application data.
+
+2. **Designing the Administrative Interface**
+   I created a structured user interface using **Kivy and KivyMD** to allow administrators to easily access configuration options.
+
+3. **Implementing Data Management Features**
+   The interface was designed to allow administrators to update or modify information provided by the **FacultyOCAI system**.
+
+4. **Integrating Supporting Libraries**
+   Libraries such as **Scikit-Learn, PyAudio, and Text-to-Speech** were integrated to support additional functionalities used within the overall system environment.
+
+5. **Testing and Validation**
+   The system was tested to ensure that data updates correctly reflect within the GuestOCAI application.
+
+---
+
+# What I Learned
+
+Through this project, I learned:
+
+* How to design **administrative interfaces for managing system data**
+* Developing **desktop applications using Kivy**
+* Integrating different modules within a **larger system architecture**
+* Structuring applications that support **multiple related systems**
+* Managing data flow between system components
+
+---
+
+# Overall Growth
+
+Working on this project helped improve my ability to:
+
+* Build **functional software tools for administrators**
+* Design **clean and usable interfaces**
+* Develop applications that interact with **other systems**
+* Strengthen my skills in **Python-based GUI development**
+
+This project also improved my understanding of **building support tools that maintain and manage larger applications**.
+
+---
+
+# How It Can Be Improved
+
+Possible future improvements include:
+
+* Adding **role-based access control for administrators**
+* Implementing **database integration for scalable data management**
+* Adding **audit logs for tracking configuration changes**
+* Improving the **UI/UX design for easier navigation**
+* Creating **real-time synchronization with GuestOCAI**
+* Adding **mobile or web-based admin access**
+
+---
+
+# Running the Project
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/admin-interface.git
+cd admin-interface
+```
+
+---
+
+### 2. Install Dependencies
+
+```bash
+pip install kivy kivymd scikit-learn pyaudio pyttsx3
+```
+
+---
+
+### 3. Run the Application
+
+```bash
+python main.py
+```
+
+
+## Images 
+![Application Interface](App_Images/content.png) 

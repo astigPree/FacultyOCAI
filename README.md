@@ -107,8 +107,8 @@ Possible future improvements include:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/admin-interface.git
-cd admin-interface
+git clone https://github.com/astigPree/FacultyOCAI.git
+cd FacultyOCAI
 ```
 
 ---
